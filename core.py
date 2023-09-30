@@ -8,19 +8,19 @@ DIGITS = '0123456789'
 # ERRORS
 #######################################
 
-class Error:
+class Error: # Classe geral de erro
     def __init__(self, pos_start, pos_end, error_name, details):
         self.pos_start = pos_start
         self.pos_end = pos_end
         self.error_name = error_name
         self.details = details
     
-    def as_string(self):
+    def as_string(self): # Função que retorna as informações do erro como uma string
         result  = f'{self.error_name}: {self.details}\n'
         result += f'File {self.pos_start.fn}, line {self.pos_start.ln + 1}'
         return result
 
-class IllegalCharError(Error):
+class IllegalCharError(Error): 
     def __init__(self, pos_start, pos_end, details):
         super().__init__(pos_start, pos_end, 'Illegal Character', details)
 
@@ -50,7 +50,7 @@ class Position:
         return Position(self.idx, self.ln, self.col, self.fn, self.ftxt)
 
 #######################################
-# TOKENS
+# TOKENS -> TT significa token type (tipo de token)
 #######################################
 
 TT_INT		= 'INT'
@@ -78,19 +78,21 @@ class Token:
 class Lexer:
     def __init__(self, fn, text):
         self.fn = fn
-        self.text = text
-        self.pos = Position(-1, 0, -1, fn, text)
-        self.current_char = None
+        self.text = text # Linha a ser processada
+        self.pos = Position(-1, 0, -1, fn, text) # Posição atual na linha
+        self.current_char = None # Caractere atual
         self.advance()
     
-    def advance(self):
+    def advance(self): # Função que avança para o próximo caractere
         self.pos.advance(self.current_char)
         self.current_char = self.text[self.pos.idx] if self.pos.idx < len(self.text) else None
 
     def make_tokens(self):
         tokens = []
 
+        # Itera sobre os caracteres da linha de código
         while self.current_char != None:
+            # Ignora caracteres como espaço e \tab
             if self.current_char in ' \t':
                 self.advance()
             elif self.current_char in DIGITS:
@@ -114,17 +116,19 @@ class Lexer:
                 tokens.append(Token(TT_RPAREN))
                 self.advance()
             else:
+                # Se não encontramos o caractere que estávamos esperando (algum dos possíveis)
                 pos_start = self.pos.copy()
                 char = self.current_char
                 self.advance()
-                return [], IllegalCharError(pos_start, self.pos, "'" + char + "'")
+                return [], IllegalCharError(pos_start, self.pos, "'" + char + "'") # Retorna uma lista vazia, porque vamos retornar nenhum token, e o erro. 
 
         return tokens, None
 
-    def make_number(self):
+    def make_number(self): # Função que "constrói" o número
         num_str = ''
         dot_count = 0
 
+        # Checa se o caractere está na lista de dígitos possíveis, e se possui ponto para fazer a diferenciação entre inteiro e float
         while self.current_char != None and self.current_char in DIGITS + '.':
             if self.current_char == '.':
                 if dot_count == 1: break
