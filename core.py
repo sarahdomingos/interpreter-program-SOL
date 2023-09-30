@@ -2,7 +2,7 @@
 # CONSTANTS
 #######################################
 
-DIGITS = '0123456789'
+#DIGITS = '0123456789'
 
 #######################################
 # ERRORS
@@ -36,11 +36,11 @@ class Position:
         self.fn = fn
         self.ftxt = ftxt
 
-    def advance(self, current_char):
+    def advance(self, current_command):
         self.idx += 1
         self.col += 1
 
-        if current_char == '\n':
+        if current_command == '\n':
             self.ln += 1
             self.col = 0
 
@@ -53,14 +53,28 @@ class Position:
 # TOKENS -> TT significa token type (tipo de token)
 #######################################
 
-TT_INT		= 'INT'
-TT_FLOAT    = 'FLOAT'
-TT_PLUS     = 'PLUS'
-TT_MINUS    = 'MINUS'
-TT_MUL      = 'MUL'
-TT_DIV      = 'DIV'
-TT_LPAREN   = 'LPAREN'
-TT_RPAREN   = 'RPAREN'
+TT_LOOP		= 'loop'
+TT_SEQUENCIA     = 'sequencia'
+TT_PRESENT    = 'present'
+TT_TEMPO      = 'tempo'
+TT_FASES_EPIC      = 'fases_epic'
+TT_EXPLORE   = 'explore'
+TT_INTERACT   = 'interact'
+TT_CRITIQUE = "critique"
+TT_NAVEGAR = "navegar"
+TT_VER_PDF = "ver_pdf"
+TT_VER_VIDEO = "ver_video"
+TT_MEETING = "meeting"
+TT_WP_WEB = "wp_web"
+TT_EMAIL = "email"
+TT_NUM_VEZES = "12345"
+TT_NUM_TEMPO = ["15min", "20min", "1h", "1d", "2d", "infinito"]
+TT_BROWSER = "browser"
+TT_LINK_PDF = "link_pdf"
+TT_LINK_VIDEO = "link_video"
+TT_LINK_MEETING = "link_meeting"
+TT_LINK_WP_WEB = "link_wp_web"
+TT_LINK_EMAIL = "link_email"
 
 class Token:
     def __init__(self, type_, value=None):
@@ -80,45 +94,45 @@ class Lexer:
         self.fn = fn
         self.text = text # Linha a ser processada
         self.pos = Position(-1, 0, -1, fn, text) # Posição atual na linha
-        self.current_char = None # Caractere atual
+        self.current_command = None # Caractere atual
         self.advance()
     
     def advance(self): # Função que avança para o próximo caractere
-        self.pos.advance(self.current_char)
-        self.current_char = self.text[self.pos.idx] if self.pos.idx < len(self.text) else None
+        self.pos.advance(self.current_command)
+        self.current_command = self.text[self.pos.idx] if self.pos.idx < len(self.text) else None
 
     def make_tokens(self):
         tokens = []
 
         # Itera sobre os caracteres da linha de código
-        while self.current_char != None:
+        while self.current_command != None:
             # Ignora caracteres como espaço e \tab
-            if self.current_char in ' \t':
+            if self.current_command in ' \t':
                 self.advance()
-            elif self.current_char in DIGITS:
+            elif self.current_command in TT_NUM_VEZES:
                 tokens.append(self.make_number())
-            elif self.current_char == '+':
-                tokens.append(Token(TT_PLUS))
+            elif self.current_command == 'loop': #PAREI POR AQUI, NAO SEI SE TEMOS QUE USAR TODOS OS COMANDOS DA ARVORE OU SE PODE USAR SÓ O NECESSÁRIO
+                tokens.append(Token(TT_LOOP))
                 self.advance()
-            elif self.current_char == '-':
+            elif self.current_command == '-':
                 tokens.append(Token(TT_MINUS))
                 self.advance()
-            elif self.current_char == '*':
+            elif self.current_command == '*':
                 tokens.append(Token(TT_MUL))
                 self.advance()
-            elif self.current_char == '/':
+            elif self.current_command == '/':
                 tokens.append(Token(TT_DIV))
                 self.advance()
-            elif self.current_char == '(':
+            elif self.current_command == '(':
                 tokens.append(Token(TT_LPAREN))
                 self.advance()
-            elif self.current_char == ')':
+            elif self.current_command == ')':
                 tokens.append(Token(TT_RPAREN))
                 self.advance()
             else:
                 # Se não encontramos o caractere que estávamos esperando (algum dos possíveis)
                 pos_start = self.pos.copy()
-                char = self.current_char
+                char = self.current_command
                 self.advance()
                 return [], IllegalCharError(pos_start, self.pos, "'" + char + "'") # Retorna uma lista vazia, porque vamos retornar nenhum token, e o erro. 
 
@@ -129,13 +143,13 @@ class Lexer:
         dot_count = 0
 
         # Checa se o caractere está na lista de dígitos possíveis, e se possui ponto para fazer a diferenciação entre inteiro e float
-        while self.current_char != None and self.current_char in DIGITS + '.':
-            if self.current_char == '.':
+        while self.current_command != None and self.current_command in DIGITS + '.':
+            if self.current_command == '.':
                 if dot_count == 1: break
                 dot_count += 1
                 num_str += '.'
             else:
-                num_str += self.current_char
+                num_str += self.current_command
             self.advance()
 
         if dot_count == 0:
