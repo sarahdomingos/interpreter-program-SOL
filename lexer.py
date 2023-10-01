@@ -61,6 +61,6 @@ class Lexer:
           break
       
       if not match_found:
-        raise Exception('Token not recognized!')
+        raise Exception('token not recognized!')
 
     return tokens
