@@ -22,8 +22,8 @@ TT_LINK_EMAIL            = 'LINK_EMAIL'
 PATTERNS = [
     (TT_LOOP,    'loop'),
     (TT_BROWSER, 'navegador'),
-    (TT_TEMPO,   '(15_min|20_min|1_hora|2_dias|no_limit)'),
     (TT_VEZES,   '[1-5]'),
+    (TT_TEMPO,   '(15_min|20_min|1_hora|2_dias|no_limit)'),
     (TT_LINK_PDF,              'https://pdf'),
     (TT_LINK_VIDEOCONFERENCIA, 'https://videoconferencia'),
     (TT_LINK_VIDEO,            'https://video'),
@@ -67,7 +67,7 @@ class Lexer:
       # check if we can do some match from token specification
       for pattern in PATTERNS:
         type = pattern[0]
-        regex = pattern[1]
+        regex = f'\\b{pattern[1]}\\b'
         match = re.match(regex, input)
         
         if match:
