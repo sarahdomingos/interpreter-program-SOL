@@ -101,13 +101,13 @@ class Parser:
     return NonTerminalNode('FASES_EPIC', [child])
 
   def SEQUENCIA_1(self):
-    child = self.consume(TT_EPSILON)
-    if child:
-      return NonTerminalNode('SEQUENCIA_1', [child])
+    child_1 = self.consume(TT_EPSILON)
+    if child_1:
+      return NonTerminalNode('SEQUENCIA_1', [child_1])
 
-    child = self.SEQUENCIA()
-    if child:
-      return NonTerminalNode('SEQUENCIA_1', [child])
+    child_2 = self.SEQUENCIA()
+    if child_2:
+      return NonTerminalNode('SEQUENCIA_1', [child_2])
 
     return None
 
