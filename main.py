@@ -1,6 +1,6 @@
 from lexer import Lexer
-from parsing import Parser, pre_order
-
+from parsing import Parser
+from execution import run_tree
 
 program_input = "loop 1 navegador https://videoconferencia 15_min navegador 20_min navegador https://whatsapp 1_hora"
 
@@ -11,6 +11,6 @@ try:
   parser = Parser(tokens)
   parse_tree = parser.build()
 
-  pre_order(parse_tree)
+  run_tree(parse_tree)
 except Exception as e:
   print("Error:", e)
