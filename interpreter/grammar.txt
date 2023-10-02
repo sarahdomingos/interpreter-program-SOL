@@ -1,0 +1,41 @@
+# Gramática
+
+## Não-terminais
+
+PROGRAMA_SOL -> loop VEZES SEQUENCIA
+SEQUENCIA    -> FASES_EPIC SEQUENCIA | FASES_EPIC
+
+FASES_EPIC   -> EXPLORE | PRESENT | INTERACT | CRITIQUE
+EXPLORE      -> NAVEGAR TEMPO
+PRESENT      -> ( VISUALIZAR_PDF | VISUALIZAR_VIDEO | VIDEOCONFERENCIA ) TEMPO
+INTERACT     -> ( WHATSAPP_WEB | EMAIL | VIDEOCONFERENCIA ) TEMPO 
+CRITIQUE     -> ( WHATSAPP_WEB | EMAIL | VIDEOCONFERENCIA ) TEMPO
+
+NAVEGAR          -> BROWSER
+VISUALIZAR_PDF   -> BROWSER LINK_PDF
+VISUALIZAR_VIDEO -> BROWSER LINK_VIDEO
+VIDEOCONFERENCIA -> BROWSER LINK_VIDEOCONFERENCIA
+WHATSAPP_WEB     -> BROWSER LINK_WHATSAPP_WEB
+EMAIL            -> BROWSER LINK_EMAIL
+
+## Terminais
+
+VEZES                 -> 1 | 2 | 3 | 4 | 5
+BROWSER               -> navegador
+TEMPO                 -> 15_min | 20_min | 1_hora | 2_dias | no_limit
+LINK_PDF              -> "<padrão de link web para arquivos PDF>"
+LINK_VIDEO            -> "<padrão de link web para sites de video>"
+LINK_VIDEOCONFERENCIA -> "<padrão de link web para sites de video-conferência>"
+LINK_WHATSAPP_WEB     -> "<padrão de link web para whatsapp web>"
+LINK_EMAIL            -> "<padrão de link web para sites de email>"
+
+## Problemas
+
+1. SEQUENCIA: Possui derivações iniciando com o mesmo símbolo (FASES_EPIC). Resolução:
+
+SEQUENCIA   -> FASES_EPIC SEQUENCIA_1
+SEQUENCIA_1 -> SEQUENCIA | epsilon
+
+2. SEQUENCIA_1 possui recursão à esquerda. Resolução:
+
+SEQUENCIA_1 -> epsilon | SEQUENCIA
