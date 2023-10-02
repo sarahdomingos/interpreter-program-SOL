@@ -26,7 +26,7 @@ PATTERNS = [
     (TT_TEMPO,   '(15_min|20_min|1_hora|2_dias|no_limit)'),
     (TT_LINK_PDF,              'pdf:".+\\.pdf"'),
     (TT_LINK_VIDEO,            'video:"[\\w\\s]*"'),
-    (TT_LINK_VIDEOCONFERENCIA, 'videoconferencia'),
+    (TT_LINK_VIDEOCONFERENCIA, 'https:\/\/meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3}'),
     (TT_LINK_WHATSAPP_WEB,     'whatsapp'),
     (TT_LINK_EMAIL,            'email:"[a-z0-9\\.-]+@[a-z]+(\.[a-z]{2,})+"'),
 ]
