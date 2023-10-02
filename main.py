@@ -1,6 +1,6 @@
 from lexer import Lexer
 from parsing import Parser
-from execution import run_tree
+from run_tree import run_tree
 
 program_input = "loop 1 navegador https://videoconferencia 15_min navegador 20_min navegador https://whatsapp 1_hora"
 
