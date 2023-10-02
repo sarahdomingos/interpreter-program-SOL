@@ -24,11 +24,11 @@ PATTERNS = [
     (TT_BROWSER, 'navegador'),
     (TT_VEZES,   '[1-5]'),
     (TT_TEMPO,   '(15_min|20_min|1_hora|2_dias|no_limit)'),
-    (TT_LINK_PDF,              'https://pdf'),
-    (TT_LINK_VIDEOCONFERENCIA, 'https://videoconferencia'),
-    (TT_LINK_VIDEO,            'https://video'),
-    (TT_LINK_WHATSAPP_WEB,     'https://whatsapp'),
-    (TT_LINK_EMAIL,            'https://email'),
+    (TT_LINK_PDF,              '^.+\.pdf$'),
+    (TT_LINK_VIDEOCONFERENCIA, 'https:\/\/meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3}'),
+    (TT_LINK_VIDEO,            'video:".*"'),
+    (TT_LINK_WHATSAPP_WEB,     'https://web.whatsapp.com/'),
+    (TT_LINK_EMAIL,            '.*@(gmail|hotmail|outlook|yahoo|bol|ig|uol|terra|r7)\.com(.br)?'),
 ]
 
 
