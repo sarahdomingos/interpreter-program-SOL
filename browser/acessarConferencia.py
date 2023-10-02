@@ -6,9 +6,13 @@ from selenium.webdriver.chrome.options import Options
 import time
 
 
-driver = None
+def acessar_videoconferencia(meeting_link, seconds):
+	
+	# assign email id and password
+	mail_address = 'grupo9086@gmail.com'
+	password = 'GRUPO6@CC'
 
-def acessar_videoconferencia():
+	# create chrome instance
 	opt = Options()
 	opt.add_argument('--disable-blink-features=AutomationControlled')
 	opt.add_argument('--start-maximized')
@@ -20,21 +24,17 @@ def acessar_videoconferencia():
 	})
 	driver = webdriver.Chrome(options=opt)
 
-	# assign email id and password
-	mail_address = 'grupo9086@gmail.com'
-	password = 'GRUPO6@CC'
-
 	# login to Google account
-	Glogin(mail_address, password)
+	Glogin(mail_address, password, driver)
 
 	# go to google meet
-	driver.get('https://meet.google.com/rcs-zohy-tgw')
-	turnOffMicCam()
-	# AskToJoin()
-	joinNow()
+	driver.get(meeting_link)
+	turnOffMicCam(driver)
+	# AskToJoin(driver)
+	joinNow(driver)
 
 
-def Glogin(mail_address, password):
+def Glogin(mail_address, password, driver):
 	# Login Page
 	driver.get(
 		'https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/&ec=GAZAAQ')
@@ -56,7 +56,7 @@ def Glogin(mail_address, password):
 	driver.implicitly_wait(100)
 
 
-def turnOffMicCam():
+def turnOffMicCam(driver):
 	# turn off Microphone
 	time.sleep(2)
 	driver.find_element(By.XPATH,'//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[4]/div[1]/div/div/div').click()
@@ -68,7 +68,7 @@ def turnOffMicCam():
 	driver.implicitly_wait(3000)
 
 
-def joinNow():
+def joinNow(driver):
 	# Join meet
 	print(1)
 	time.sleep(5)
@@ -78,7 +78,7 @@ def joinNow():
 	print(1)
 
 
-def AskToJoin():
+def AskToJoin(driver):
 	# Ask to Join meet
 	time.sleep(5)
 	driver.implicitly_wait(2000)
