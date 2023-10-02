@@ -5,8 +5,14 @@ from selenium import webdriver
 
 from webdriver_manager.chrome import ChromeDriverManager
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
+def acessar_youtube():
+  driver = webdriver.Chrome(ChromeDriverManager().install())
+  
+  driver.get("https://www.youtube.com/")
+  
+  
+  time.sleep(5)
+  
+  driver.quit()
 
-driver.get("https://www.youtube.com/")
-
-driver.quit()
+acessar_youtube()
