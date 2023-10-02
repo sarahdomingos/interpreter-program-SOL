@@ -1,4 +1,4 @@
-from lexer import *
+from interpreter.lexer import *
 
 
 class NonTerminalNode:

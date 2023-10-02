@@ -2,19 +2,15 @@
 #lembre de verificar se você tem o selenium instalado e verrsão compatível do python!!
 
 from selenium import webdriver
-
 from webdriver_manager.chrome import ChromeDriverManager
 
 import time
 
-def acessar_youtube():
-  driver = webdriver.Chrome(ChromeDriverManager().install())
-  
-  driver.get("https://www.youtube.com/")
-  
-  
-  time.sleep(5)
-  
-  driver.quit()
 
-acessar_youtube()
+def acessar_youtube(search, seconds):
+  driver = webdriver.Chrome(ChromeDriverManager().install())
+  driver.get(f'https://www.youtube.com/results?search_query={search}')
+
+  if seconds > 0:
+    time.sleep(seconds)
+    driver.quit()

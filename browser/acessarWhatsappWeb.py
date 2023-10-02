@@ -1,11 +1,12 @@
 from selenium import webdriver
-import time
 from webdriver_manager.chrome import ChromeDriverManager
+import time
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
 
-driver.get("https://web.whatsapp.com/")
+def acessar_whatsapp_web(seconds):
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver.get("https://web.whatsapp.com/")
 
-time.sleep(5)
-
-driver.quit()
+    if seconds > 0:
+        time.sleep(seconds)
+        driver.quit()

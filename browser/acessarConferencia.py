@@ -6,6 +6,34 @@ from selenium.webdriver.chrome.options import Options
 import time
 
 
+driver = None
+
+def acessar_videoconferencia():
+	opt = Options()
+	opt.add_argument('--disable-blink-features=AutomationControlled')
+	opt.add_argument('--start-maximized')
+	opt.add_experimental_option("prefs", {
+		"profile.default_content_setting_values.media_stream_mic": 1,
+		"profile.default_content_setting_values.media_stream_camera": 1,
+		"profile.default_content_setting_values.geolocation": 0,
+		"profile.default_content_setting_values.notifications": 1
+	})
+	driver = webdriver.Chrome(options=opt)
+
+	# assign email id and password
+	mail_address = 'grupo9086@gmail.com'
+	password = 'GRUPO6@CC'
+
+	# login to Google account
+	Glogin(mail_address, password)
+
+	# go to google meet
+	driver.get('https://meet.google.com/rcs-zohy-tgw')
+	turnOffMicCam()
+	# AskToJoin()
+	joinNow()
+
+
 def Glogin(mail_address, password):
 	# Login Page
 	driver.get(
@@ -57,29 +85,3 @@ def AskToJoin():
 	driver.find_element(By.CSS_SELECTOR,
 		'div.uArJ5e.UQuaGc.Y5sE8d.uyXBBb.xKiqt').click()
 	# Ask to join and join now buttons have same xpaths
-
-
-# assign email id and password
-mail_address = 'grupo9086@gmail.com'
-password = 'GRUPO6@CC'
-
-# create chrome instance
-opt = Options()
-opt.add_argument('--disable-blink-features=AutomationControlled')
-opt.add_argument('--start-maximized')
-opt.add_experimental_option("prefs", {
-	"profile.default_content_setting_values.media_stream_mic": 1,
-	"profile.default_content_setting_values.media_stream_camera": 1,
-	"profile.default_content_setting_values.geolocation": 0,
-	"profile.default_content_setting_values.notifications": 1
-})
-driver = webdriver.Chrome(options=opt)
-
-# login to Google account
-Glogin(mail_address, password)
-
-# go to google meet
-driver.get('https://meet.google.com/rcs-zohy-tgw')
-turnOffMicCam()
-# AskToJoin()
-joinNow()

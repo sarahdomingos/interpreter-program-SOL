@@ -22,13 +22,13 @@ TT_LINK_EMAIL            = 'LINK_EMAIL'
 PATTERNS = [
     (TT_LOOP,    'loop'),
     (TT_BROWSER, 'navegador'),
-    (TT_VEZES,   '[1-5]'),
+    (TT_VEZES,   '[1-5]\\b'),
     (TT_TEMPO,   '(15_min|20_min|1_hora|2_dias|no_limit)'),
-    (TT_LINK_PDF,              'https://pdf'),
-    (TT_LINK_VIDEOCONFERENCIA, 'https://videoconferencia'),
-    (TT_LINK_VIDEO,            'https://video'),
-    (TT_LINK_WHATSAPP_WEB,     'https://whatsapp'),
-    (TT_LINK_EMAIL,            'https://email'),
+    (TT_LINK_PDF,              'pdf:".+\\.pdf"'),
+    (TT_LINK_VIDEO,            'video:"[\\w\\s]*"'),
+    (TT_LINK_VIDEOCONFERENCIA, 'videoconferencia'),
+    (TT_LINK_WHATSAPP_WEB,     'whatsapp'),
+    (TT_LINK_EMAIL,            'email:"[a-z0-9\\.-]+@[a-z]+(\.[a-z]{2,})+"'),
 ]
 
 
@@ -67,7 +67,7 @@ class Lexer:
       # check if we can do some match from token specification
       for pattern in PATTERNS:
         type = pattern[0]
-        regex = f'\\b{pattern[1]}\\b'
+        regex = pattern[1]
         match = re.match(regex, input)
         
         if match:
@@ -79,6 +79,6 @@ class Lexer:
       
       # if we can't do any match from token specification, raises an error
       if not match_found:
-        raise Exception('token not recognized!')
+        raise Exception(f'token not recognized ("{input}")')
 
     return tokens
