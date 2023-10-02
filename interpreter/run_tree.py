@@ -67,11 +67,12 @@ def handle_link_token(link_token, time_token):
   seconds = timeToSeconds(time_token)
 
   if link_token.type == TT_LINK_PDF:
-    abrir_pdf(get_link_value(link_token), seconds)
+    abrir_pdf(get_directory_value(link_token), seconds)
+    print(get_directory_value(link_token))
   elif link_token.type == TT_LINK_VIDEO:
     acessar_youtube(get_link_value(link_token), seconds)
   elif link_token.type == TT_LINK_VIDEOCONFERENCIA:
-    acessar_videoconferencia()
+    acessar_videoconferencia(link_token.value, seconds)
   elif link_token.type == TT_LINK_WHATSAPP_WEB:
     acessar_whatsapp_web(seconds)
   elif link_token.type == TT_LINK_EMAIL:
@@ -93,3 +94,9 @@ def timeToSeconds(token):
 
 def get_link_value(link_token):
   return link_token.value.replace('"', '').split(':')[1]
+
+def get_directory_value(link_token):
+  text = link_token.value.replace('"', '')
+  separator = text.find(":")
+  return text[separator + 1:]
+
