@@ -53,32 +53,38 @@ class Lexer:
 
   def build(self):
     tokens = []
-    input = self.text
 
-    while input != '':
+    for line in self.text:
 
-      # skipping white spaces or tabs
-      if input[0] in [' ', '\t']:
-        input = input[1:]
+      if line[0] == '#':
         continue
 
-      match_found = False
+      input = line
 
-      # check if we can do some match from token specification
-      for pattern in PATTERNS:
-        type = pattern[0]
-        regex = pattern[1]
-        match = re.match(regex, input)
+      while input != '':
+
+        # skipping white spaces or tabs
+        if input[0] in [' ', '\t', '\n']:
+          input = input[1:]
+          continue
+
+        match_found = False
+
+        # check if we can do some match from token specification
+        for pattern in PATTERNS:
+          type = pattern[0]
+          regex = pattern[1]
+          match = re.match(regex, input)
+
+          if match:
+            # if matches, create a token and drop the matched part of program input
+            tokens.append(Token(type, match.group()))
+            input = input[match.end():]
+            match_found = True
+            break
         
-        if match:
-          # if matches, create a token and drop the matched part of program input
-          tokens.append(Token(type, match.group()))
-          input = input[match.end():]
-          match_found = True
-          break
-      
-      # if we can't do any match from token specification, raises an error
-      if not match_found:
-        raise Exception(f'token not recognized ("{input}")')
+        # if we can't do any match from token specification, raises an error
+        if not match_found:
+          raise Exception(f'token not recognized ("{line} - {input}")')
 
     return tokens
