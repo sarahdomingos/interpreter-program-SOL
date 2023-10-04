@@ -25,7 +25,12 @@ pip install selenium==4.0.0
 pip install webdriver-manager
 ```
 
-# Usage
+### 4. Py Simple Gui
+```
+pip install pysimplegui
+```
+
+# Run with multiples examples (no interface)
 All inputs examples are in the `program.sol` file, which is called by `main.py` to execute the commands.
 
 To run the interpreter you need to insert the following command in your terminal:
@@ -38,3 +43,13 @@ OR
 ```
 python main.py
 ```
+
+# Run single command line (with interface)
+```
+python mainInterface.py
+```
+OR
+```
+python3 mainInterface.py
+```
+
