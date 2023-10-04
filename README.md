@@ -36,20 +36,19 @@ All inputs examples are in the `program.sol` file, which is called by `main.py` 
 To run the interpreter you need to insert the following command in your terminal:
 
 ```
-python3 main.py
+python main.py program.sol
 ```
 OR
 
 ```
-python main.py
+python3 main.py program.sol
 ```
 
 # Run single command line (with interface)
 ```
-python mainInterface.py
+python gui.py
 ```
 OR
 ```
-python3 mainInterface.py
+python3 gui.py
 ```
-
