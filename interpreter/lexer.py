@@ -1,9 +1,6 @@
 import re
 
-
-#
 # All token types.
-#
 TT_EPSILON = 'EPSILON'
 TT_LOOP    = 'LOOP'
 TT_VEZES   = 'VEZES'
@@ -15,10 +12,7 @@ TT_LINK_VIDEOCONFERENCIA = 'LINK_VIDEOCONFERENCIA'
 TT_LINK_WHATSAPP_WEB     = 'LINK_WHATSAPP_WEB'
 TT_LINK_EMAIL            = 'LINK_EMAIL'
 
-
-#
 # Token specification relating token types to its patterns.
-#
 PATTERNS = [
     (TT_LOOP,    'loop'),
     (TT_BROWSER, 'navegador'),
@@ -31,10 +25,7 @@ PATTERNS = [
     (TT_LINK_EMAIL,            'email:"[a-z0-9\\.-]+@[a-z]+(\.[a-z]{2,})+"'),
 ]
 
-
-#
 # Represents a token by receiving its type and value.
-#
 class Token:
   def __init__(self, type, value):
     self.type = type
@@ -43,26 +34,22 @@ class Token:
   def __repr__(self):
     return f'({self.type},{self.value})'
 
-
-#
 # Lexical analyzer: receives a program input and returns a list of tokens.
-#
 class Lexer:
   def __init__(self, text):
     self.text = text
 
   def build(self):
     tokens = []
-
+      
+    # skipping lines that start with '//', which are comments
     for line in self.text:
-
       if line[0] == '//':
         continue
 
       input = line
 
       while input != '':
-
         # skipping white spaces or tabs
         if input[0] in [' ', '\t', '\n']:
           input = input[1:]
