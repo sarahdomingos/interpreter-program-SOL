@@ -1,4 +1,4 @@
-from interpreter.lexer import *
+from interpreter.token import *
 from interpreter.parse_tree import TerminalNode, NonTerminalNode
 
 
