@@ -56,7 +56,7 @@ class Lexer:
 
     for line in self.text:
 
-      if line[0] == '#':
+      if line[0] == '//':
         continue
 
       input = line
