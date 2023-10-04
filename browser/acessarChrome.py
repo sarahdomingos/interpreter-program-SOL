@@ -17,7 +17,7 @@ def acessar_chrome(seconds):
 def abrir_pdf(path, seconds):
     driver = webdriver.Chrome(ChromeDriverManager().install())
     print("Path:", path)
-    driver.get("file:///" + path)
+    driver.get(path)
     # driver.get(path)
     
     if seconds > 0:

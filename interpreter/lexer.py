@@ -23,7 +23,7 @@ PATTERNS = [
     (TT_LOOP,    'loop'),
     (TT_BROWSER, 'navegador'),
     (TT_VEZES,   '[1-5]\\b'),
-    (TT_TEMPO,   '(15_min|20_min|1_hora|2_dias|no_limit)'),
+    (TT_TEMPO,   '(15_min|20_min|1_hora|2_dias|no_limit|10s)'),
     (TT_LINK_PDF,              'pdf:".+\\.pdf"'),
     (TT_LINK_VIDEO,            'video:"[\\w\\s]*"'),
     (TT_LINK_VIDEOCONFERENCIA, 'https:\/\/meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3}'),

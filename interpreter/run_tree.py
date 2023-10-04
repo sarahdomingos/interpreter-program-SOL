@@ -89,6 +89,8 @@ def timeToSeconds(token):
     return 3600
   elif value == '2_dias':
     return 172800
+  elif value == '10s':
+    return 10
   else:
     return -1
 
