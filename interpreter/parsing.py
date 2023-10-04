@@ -1,25 +1,5 @@
 from interpreter.lexer import *
-
-
-class NonTerminalNode:
-  def __init__(self, name, children):
-    self.name = name
-    self.children = children
-
-
-class TerminalNode:
-  def __init__(self, token):
-    self.token = token
-
-
-def pre_order(node):
-  if isinstance(node, TerminalNode):
-    print(node.token)
-    return
-
-  # print(node.name)
-  for child in node.children:
-    pre_order(child)
+from interpreter.parse_tree import TerminalNode, NonTerminalNode
 
 
 #
