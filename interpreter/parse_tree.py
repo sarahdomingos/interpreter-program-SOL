@@ -8,7 +8,7 @@ class NonTerminalNode:
 
   def __repr__(self):
     strings = []
-    pre_order(self, 0, strings)
+    pre_order(self, 1, strings)
     return '\n'.join(strings)
 
 #

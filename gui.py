@@ -25,7 +25,7 @@ while True:
 
         if program_input:
             try:
-                lexer = Lexer(program_input)
+                lexer = Lexer([program_input])
                 tokens = lexer.build()
                 
                 if not tokens:
@@ -34,7 +34,8 @@ while True:
                 parser = Parser(tokens)
                 parse_tree = parser.build()
 
-                # browser_run(parse_tree)
+                print(parse_tree)
+                browser_run(parse_tree)
             except Exception as e:
                 sg.popup_error(f"Erro: {e}")
 

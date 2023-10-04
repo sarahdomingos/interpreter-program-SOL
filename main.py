@@ -16,6 +16,6 @@ try:
   parse_tree = parser.build()
 
   print(parse_tree)
-  # browser_run(parse_tree)
+  browser_run(parse_tree)
 except Exception as e:
   print("Error:", e)
