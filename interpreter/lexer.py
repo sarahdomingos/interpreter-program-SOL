@@ -1,5 +1,6 @@
 import re
 
+
 # All token types.
 TT_EPSILON = 'EPSILON'
 TT_LOOP    = 'LOOP'
@@ -25,6 +26,7 @@ PATTERNS = [
     (TT_LINK_EMAIL,            'email:"[a-z0-9\\.-]+@[a-z]+(\.[a-z]{2,})+"'),
 ]
 
+
 # Represents a token by receiving its type and value.
 class Token:
   def __init__(self, type, value):
@@ -34,44 +36,47 @@ class Token:
   def __repr__(self):
     return f'({self.type},{self.value})'
 
+
 # Lexical analyzer: receives a program input and returns a list of tokens.
 class Lexer:
   def __init__(self, text):
-    self.text = text
+    self.program_lines = text
 
   def build(self):
     tokens = []
-      
-    # skipping lines that start with '//', which are comments
-    for line in self.text:
 
-      if line[0:2] == '//':
+    for i, line in enumerate(self.program_lines):
+
+      # skipping lines that start with '//', which are comments
+      if line.startswith('//'):
         continue
 
-      input = line
-
-      while input != '':
-        # skipping white spaces or tabs
-        if input[0] in [' ', '\t', '\n']:
-          input = input[1:]
+      while line != '':
+        # skipping white spaces, tabs or break lines
+        if line[0] in [' ', '\t', '\n']:
+          line = line[1:]
           continue
 
         match_found = False
+
         # check if we can do some match from token specification
         for pattern in PATTERNS:
           type = pattern[0]
           regex = pattern[1]
-          match = re.match(regex, input)
+          match = re.match(regex, line)
 
           if match:
-            # if matches, create a token and drop the matched part of program input
+            # if matches, create a token and drop the matched part of program line
             tokens.append(Token(type, match.group()))
-            input = input[match.end():]
+            line = line[match.end():]
             match_found = True
             break
         
         # if we can't do any match from token specification, raises an error
         if not match_found:
-          raise Exception(f'Token not recognized ("{line} - {input}")')
+          split_index = re.search('[\s\t\n]|$', line).start()
+          invalid_token = line[:split_index]
+
+          raise Exception(f'token not recognized at line {i + 1} - "{invalid_token}")')
 
     return tokens
