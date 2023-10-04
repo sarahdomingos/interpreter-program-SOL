@@ -47,21 +47,19 @@ class Token:
 #
 # Lexical analyzer: receives a program input and returns a list of tokens.
 #
-class Lexer:
+class LexerInterface:
   def __init__(self, text):
     self.text = text
 
   def build(self):
     tokens = []
+    
+    input = self.text
 
-    for line in self.text:
+    if input[0:2] == '//':
+      return
 
-      if line[0:2] == '//':
-        continue
-
-      input = line
-
-      while input != '':
+    while input != '':
 
         # skipping white spaces or tabs
         if input[0] in [' ', '\t', '\n']:
@@ -85,6 +83,6 @@ class Lexer:
         
         # if we can't do any match from token specification, raises an error
         if not match_found:
-          raise Exception(f'token not recognized ("{line} - {input}")')
+          raise Exception(f'token not recognized ("{input}")')
 
     return tokens

@@ -22,15 +22,16 @@ def acessar_videoconferencia(meeting_link, seconds):
 		"profile.default_content_setting_values.geolocation": 0,
 		"profile.default_content_setting_values.notifications": 1
 	})
-	driver = webdriver.Chrome(options=opt)
+	#driver = webdriver.Chrome(options=opt)
+	driver = webdriver.Chrome(ChromeDriverManager().install())
 
 	# login to Google account
 	Glogin(mail_address, password, driver)
 
 	# go to google meet
 	driver.get(meeting_link)
-	turnOffMicCam(driver)
-	# AskToJoin(driver)
+	#turnOffMicCam(driver)
+	AskToJoin(driver)
 	joinNow(driver)
 
 
