@@ -8,7 +8,7 @@ from browser.acessarWhatsappWeb import *
 from browser.enviarEmail import *
 
 
-def run_tree(node):
+def browser_run(node):
   if isinstance(node, TerminalNode):
     return
 
@@ -26,7 +26,7 @@ def run_tree(node):
     process_CRITIQUE(node)
 
   for child in node.children:
-    run_tree(child)
+    browser_run(child)
 
 def extract_token(node):
   if isinstance(node, TerminalNode):
@@ -78,6 +78,7 @@ def handle_link_token(link_token, time_token):
   elif link_token.type == TT_LINK_EMAIL:
     enviar_email(get_link_value(link_token))
 
+
 def timeToSeconds(token):
   value = token.value
 
@@ -101,4 +102,3 @@ def get_directory_value(link_token):
   text = link_token.value.replace('"', '')
   separator = text.find(":")
   return text[separator + 1:]
-

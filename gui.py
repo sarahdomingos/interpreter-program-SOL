@@ -1,8 +1,9 @@
 from interpreter.lexer import Lexer
 from interpreter.parsing import Parser
-from interpreter.run_tree import run_tree
+from browser.browser_run import browser_run
+
 import PySimpleGUI as sg
-from interpreter.lexerInterfaceInput import LexerInterface
+
 
 sg.theme('DarkAmber')
 
@@ -24,7 +25,7 @@ while True:
 
         if program_input:
             try:
-                lexer = LexerInterface(program_input)
+                lexer = Lexer(program_input)
                 tokens = lexer.build()
                 
                 if not tokens:
@@ -33,7 +34,7 @@ while True:
                 parser = Parser(tokens)
                 parse_tree = parser.build()
 
-                run_tree(parse_tree)
+                # browser_run(parse_tree)
             except Exception as e:
                 sg.popup_error(f"Erro: {e}")
 

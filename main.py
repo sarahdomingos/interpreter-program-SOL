@@ -1,18 +1,21 @@
+import sys
+
 from interpreter.lexer import Lexer
 from interpreter.parsing import Parser
-from interpreter.run_tree import run_tree
-from PySimpleGUI import PySimpleGUI as sg
+from browser.browser_run import browser_run
+
 
 try:
-  program = open('program.sol', 'r').readlines()
-  #print(type(program))
-  #program = list('navegador 10s')
-  lexer = Lexer(program)
+  program_path = sys.argv[1]
+  program_lines = open(program_path, 'r').readlines()
+
+  lexer = Lexer(program_lines)
   tokens = lexer.build()
 
   parser = Parser(tokens)
   parse_tree = parser.build()
 
-  run_tree(parse_tree)
+  print(parse_tree)
+  # browser_run(parse_tree)
 except Exception as e:
   print("Error:", e)
