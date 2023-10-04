@@ -69,7 +69,6 @@ class Lexer:
           continue
 
         match_found = False
-
         # check if we can do some match from token specification
         for pattern in PATTERNS:
           type = pattern[0]
@@ -85,6 +84,6 @@ class Lexer:
         
         # if we can't do any match from token specification, raises an error
         if not match_found:
-          raise Exception(f'token not recognized ("{line} - {input}")')
+          raise Exception(f'Token not recognized ("{line} - {input}")')
 
     return tokens
