@@ -36,12 +36,12 @@ All inputs examples are in the `program.sol` file, which is called by `main.py` 
 To run the interpreter you need to insert the following command in your terminal:
 
 ```
-python main.py program.sol
+python main.py program_example.sol
 ```
 OR
 
 ```
-python3 main.py program.sol
+python3 main.py program_example.sol
 ```
 
 # Run single command line (with interface)
