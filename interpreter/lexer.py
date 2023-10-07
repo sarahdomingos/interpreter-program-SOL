@@ -23,6 +23,9 @@ class Lexer:
           line = line[1:]
           continue
 
+        if line.startswith('//'):
+          break
+
         match_found = False
 
         # check if we can do some match from token specification
